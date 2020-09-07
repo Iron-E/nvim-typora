@@ -17,10 +17,12 @@ It is not meant to replace existing markdown plugins, only enhance their functio
 	* [ ] User Journey Diagrams
 * Basic Markdown snippets
 	* [x] Code Blocks
+	* [ ] LaTeX Blocks
 	* [ ] Tables
 		* [ ] Appending columns
 		* [x] Initial generation
 * Links to helpful documentation from `:help`.
+	* [ ] LaTeX
 	* [ ] Mermaid
 	* [ ] Markdown
 

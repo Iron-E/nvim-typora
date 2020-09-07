@@ -1,11 +1,19 @@
 --[[
 	/*
+	 * IMPORTS
+	 */
+--]]
+local vim = vim
+
+--[[
+	/*
 	 * MODULE
 	 */
 --]]
 local typora = {
 	['open'] = function(file)
-		vim.cmd(table.concat({'!typora', file or '%', '&'}, ' '))
+		if not file or file == '' then file = vim.fn.expand('%') end
+		vim.cmd(table.concat({'!typora', file, '&'}, ' '))
 	end
 }
 
