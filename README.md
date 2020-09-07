@@ -32,10 +32,11 @@ Requires the following:
 
 * Neovim 0.5+
 * [Typora](typora.io)
-* [nvim-libmodal](https://github.com/Iron-E/nvim-libmodal)
 
 __Optionally__ requires the following:
 
+* [nvim-libmodal](https://github.com/Iron-E/nvim-libmodal)
+	* Snippet functionality with `:TyporaMode`.
 * [vim-markdown](https://github.com/plasticboy/vim-markdown/blob/master/ftplugin/markdown.vim)
 	* Automatic table formatting.
 
