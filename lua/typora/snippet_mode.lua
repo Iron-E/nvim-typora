@@ -21,11 +21,15 @@ local libmodal = require('libmodal')
 ]]
 ---------------------------
 local function _paste(text)
+	-- Add a space to the bottom of the snippet.
+	if type(text) == 'string' then text = {text} end
+	text[#text+1] = ''
+
 	vim.fn.append(vim.fn.line('.'), text)
 
 	local CURRENT_WINDOW = 0
 	local current_position = vim.api.nvim_win_get_cursor(CURRENT_WINDOW)
-	vim.api.nvim_win_set_cursor(CURRENT_WINDOW, {current_position[1]+2, current_position[2]})
+	vim.api.nvim_win_set_cursor(CURRENT_WINDOW, {current_position[1]+(#text or 1), current_position[2]})
 end
 
 -----------------------------------------------------

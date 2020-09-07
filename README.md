@@ -6,8 +6,23 @@ It is not meant to replace existing markdown plugins, only enhance their functio
 
 # Features
 
-* `mermaid` snippets
-* Markdown snippets
+* Basic `mermaid` snippets
+	* [x] Class Diagrams
+	* [x] Entity Relationship Diagrams
+	* [ ] Gantt
+	* [x] Graphs
+	* [ ] Pie Charts
+	* [x] Sequence Diagrams
+	* [ ] State Diagrams
+	* [ ] User Journey Diagrams
+* Basic Markdown snippets
+	* [x] Code Blocks
+	* [ ] Tables
+		* [ ] Appending columns
+		* [x] Initial generation
+* Links to helpful documentation from `:help`.
+	* [ ] Mermaid
+	* [ ] Markdown
 
 # Installation & Requirements
 

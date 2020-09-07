@@ -3,14 +3,18 @@
 	 * MODULE
 	 */
 --]]
-local typora = {}
+local typora = {
+	['open'] = function(file)
+		vim.cmd(table.concat({'!typora', file or '%', '&'}, ' '))
+	end
+}
 
 --[[
 	/*
 	 * SUBMODULES
 	 */
 --]]
-typora.libmodal = require('typora/libmodal')
+typora.snippet_mode = require('typora/snippet_mode')
 
 --[[
 	/*
