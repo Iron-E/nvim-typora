@@ -1,0 +1,182 @@
+*typora.txt*         Bindings for Typora's Markdown in Neovim
+*typora*
+*nvim-typora*
+
+=============================================================================
+0. Table of Contents                                             *typora-toc*
+
+1. About ................ |typora-about|
+2. Usage ................ |typora-usage|
+3. Examples ............. |typora-examples|
+4. Configuration ........ |typora-configuration|
+5. License .............. |typora-license|
+6. Bugs ................. |typora-bugs|
+7. Contributing ......... |typora-contributing|
+8. Changelog ............ |typora-changelog|
+9. Credits .............. |typora-credits|
+
+==============================================================================
+1. About                                                        *typora-about*
+
+|nvim-typora|:
+- Author, Iron-E @ https://github.com/Iron-E & https://gitlab.com/Iron_E
+- GitHub @ https://github.com/Iron-E/nvim-typora
+
+|nvim-typora| is a Neovim |plugin| aimed at providing extended functionality
+with the program `Typora` (https://typora.io). It allows the opening and
+rendering of `markdown` files, live as they are edited from within Neovim.
+
+|nvim-typora| requires Neovim 0.5+. Additional requirements are documented
+alongside the features that require on them.
+
+See: |ftplugin|
+
+------------------------------------------------------------------------------
+USE CASE                                                     *typora-use-case*
+
+This plugin may be right for you if you are interested in…
+
+- Extended snippet support for `Typora`-specific markdown constructs.
+- Previewing/Rendering markdown while you edit.
+- Being able to export markdown to PDF using a variety of "themes".
+- Quick access to helpful documentation for `Typora`, |LaTeX|, etc.
+
+See: |typora-usage|
+
+==============================================================================
+2. Usage                                                        *typora-usage*
+
+Placeholder.
+
+------------------------------------------------------------------------------
+FUNCTIONS                                             *typora-usage-functions*
+
+Placeholder.
+
+==============================================================================
+3. Examples                                                  *typora-examples*
+
+Placeholder.
+
+==============================================================================
+4. Configuration                                        *typora-configuration*
+
+Placeholder.
+
+==============================================================================
+5. License                                                    *typora-license*
+
+nvim-typora — Bindings for Typora's Markdown in Neovim
+Copyright © 2020 Iron-E
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+==============================================================================
+6. Bugs                                                          *typora-bugs*
+
+* This list will grow or shrink as development continues.
+
+==============================================================================
+7. Contributing                                          *typora-contributing*
+
+The following describes what should be done if an individual wishes to
+contribute something to the `Iron-E/nvim-libmodal` repository.
+
+------------------------------------------------------------------------------
+CODE                                                *typora-contributing-code*
+
+Bugfixes ~
+
+If you discover a bug and believe you know the solution to fixing it, then
+submit a bug report and state that you are working on a fix (and what that
+fix might be), and what general timeframe the fix may be completed in
+(months, weeks, days, etc.).
+
+When the fix is complete, submit a PR that references the issue you
+submitted.
+
+Features ~
+
+If there is a feature you would like to be a part of |typora|, the best
+thing you can do is submit a feature request, and then state that you are
+working on a pull request (PR) so others don't attempt to do the same work
+at the same time.
+
+When you believe your feature is complete, write some examples for it in
+the `examples/lua` folder, and add them to |typora-examples| as
+appropriate.
+
+Assure that all existing |typora-examples| continue to work with your
+feature, unless a breaking change was discussed on the feature request.
+If you need help getting them to pass, you can ask for help on the PR.
+
+Reference the issue you submitted on the PR so that the two show up
+together when looking back at the history.
+
+Contributing documentation is not necessary but appreciated, since the
+person who knows the most about the feature being implemented is most
+likely the one implementing it.
+
+------------------------------------------------------------------------------
+DOCUMENTATION                              *typora-contributing-documentation*
+
+If there is a problem with the documentation, or you see an area where it
+could be improved, don't hesitate to submit an issue and a PR. At the very
+least it will exist in history if such an issue comes up again, and likely it
+will serve to help yourself and others with more clear and concise wording, or
+with more helpful and practical examples.
+
+------------------------------------------------------------------------------
+ISSUES                                            *typora-contributing-issues*
+
+Issues are greatly welcomed on the GitHub repository, whether they are bug
+reports, feature requests, documentation improvements, or misunderstandings:
+it's all good to have in the archive.
+
+When submitting an issue, please describe the following:
+
+1. Context regarding the issue (how you discovered it, pertinent information,
+   etc.)
+2. Detailed description of the issue.
+3. Steps to reproduce (if applicable).
+4. Expected behavior (if applicable).
+5. Attached media (screenshots, logs, etc.) (if applicable).
+
+==============================================================================
+8. Changelog                                                *typora-changelog*
+
+0.1.0 ~
+
+	Additions: ~
+	* |libmodal| bindings with `:TyporaMode`
+	* Open `Typora` from Neovim using `:Typora`
+
+==============================================================================
+9. Credits                                                    *typora-credits*
+
+Credit                        Reason
+---------------------------   ----------------------------------
+iamcco/vim-language-server    Vimscript language server.
+Iron-E                        Primary contibuter/maintainer.
+neovim/neovim                 Development platform provider.
+neovim/nvim-lspconfig         Development environment provider.
+Roberto Ierusalimschy         "Programming In Lua: 5.1".
+www.stackoverflow.com         Vimscript and |Lua| reference.
+Steve Losh                    "Learn Vimscript The Hard Way".
+sumneko/lua-language-server   Lua langauge server.
+tbastos/vim-lua               Syntax highlighting for |Lua|.
+https://typora.io             Typora development.
+
+==============================================================================
+vim:tw=78:ts=4:ft=help:norl:
