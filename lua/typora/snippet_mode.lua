@@ -70,9 +70,12 @@ end
 	* `syntax` => what kind of mermaid diagram this is.
 	* `template` => a reminder of how to format this kind of diagram.
 ]]
+--[[ RETURNS:
+	* A function which can be called to create a mermaid template.
+]]
 -----------------------------------------------
 local function _paste_mermaid(syntax, template)
-	_paste_code('mermaid', syntax, '\t'..template)
+	return function() _paste_code('mermaid', syntax, '\t'..template) end
 end
 
 
@@ -108,29 +111,23 @@ end
 	 */
 --]]
 local action_tree = {
-	['classDiagram']    = function() _paste_mermaid('classDiagram', 'Animal <|-- Duck') end,
+	['classDiagram']    = _paste_mermaid('classDiagram', 'Animal <|-- Duck'),
 	['code']            = _paste_code,
-	['erDiagram']       = function() _paste_mermaid('erDiagram', 'FOO o|--|{ BAR : example') end,
-	['graph']           = function() _paste_mermaid('graph LR', 'A --> B') end,
-	['sequenceDiagram'] = function() _paste_mermaid('sequenceDiagram', 'Alice->>John: Example text') end,
+	['erDiagram']       = _paste_mermaid('erDiagram', 'FOO o|--|{ BAR : example'),
+	['graph']           = _paste_mermaid('graph LR', 'A --> B'),
+	['sequenceDiagram'] = _paste_mermaid('sequenceDiagram', 'Alice->>John: Example text'),
 	['table']           = _paste_table
 }
 
 return libmodal.Prompt.new(
-	'Typora',
-	function()
+	'TYPORA', -- The name of the prompt
+	function() -- The function for the prompt.
 		local input = vim.g.typoraModeInput
 
 		if action_tree[input] then action_tree[input]()
 		else libmodal.utils.show_error('Invalid selection')
 		end
 	end,
-	{
-		'classDiagram',
-		'code',
-		'erDiagram',
-		'graph',
-		'sequenceDiagram',
-		'table',
-	}
+	-- The autocompletion for the prompt.
+	vim.fn.sort(vim.tbl_keys(action_tree))
 )
