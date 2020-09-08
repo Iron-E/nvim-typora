@@ -166,9 +166,10 @@ When submitting an issue, please describe the following:
 9. Credits                                                    *typora-credits*
 
 Credit                        Reason
----------------------------   ----------------------------------
+---------------------------   ----------------------------------------
 iamcco/vim-language-server    Vimscript language server.
 Iron-E                        Primary contibuter/maintainer.
+mermaid-js/mermaid            Ability to embed graphics into Markdown.
 neovim/neovim                 Development platform provider.
 neovim/nvim-lspconfig         Development environment provider.
 Roberto Ierusalimschy         "Programming In Lua: 5.1".
