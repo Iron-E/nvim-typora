@@ -42,24 +42,28 @@ end
 	* `template` => example code for the code block.
 ]]
 -----------------------------------------------------
-local function _paste_code(language, title, template)
-	if not language then
-		language = vim.fn.input("\nWhich language?\n> ")
-	end
+local function _paste_code(language, template)
+	if not language then language = vim.fn.input("\nWhich language?\n> ") end
 
 	-- This is the delimiter for a markdown codeblock.
-	local delimiter = "```"
+	local DELIMITER = "```"
 
-	local to_paste = {delimiter..language, "", delimiter}
+	local to_paste = {DELIMITER..language}
 
-	if title or template then
-		to_paste[4] = to_paste[3]
-		to_paste[2] = title or ""
-		to_paste[3] = template or ""
+	if template then -- Format the template.
+		if type(template) ~= 'table' then template = {template} end
+
+		for _, line in ipairs(template) do
+			to_paste[#to_paste+1] = line
+		end
+	else -- Add a blank line
+		to_paste[#to_paste+1] = ""
 	end
 
-	_paste(to_paste)
+	-- Add the ending delimiter.
+	to_paste[#to_paste+1] = DELIMITER
 
+	_paste(to_paste)
 end
 
 -----------------------------------------------
@@ -74,8 +78,8 @@ end
 	* A function which can be called to create a mermaid template.
 ]]
 -----------------------------------------------
-local function _paste_mermaid(syntax, template)
-	return function() _paste_code('mermaid', syntax, '\t'..template) end
+local function _paste_mermaid(template)
+	return function() _paste_code('mermaid', template) end
 end
 
 
@@ -111,12 +115,48 @@ end
 	 */
 --]]
 local action_tree = {
-	['classDiagram']    = _paste_mermaid('classDiagram', 'Animal <|-- Duck'),
-	['code']            = _paste_code,
-	['erDiagram']       = _paste_mermaid('erDiagram', 'FOO o|--|{ BAR : example'),
-	['graph']           = _paste_mermaid('graph LR', 'A --> B'),
-	['sequenceDiagram'] = _paste_mermaid('sequenceDiagram', 'Alice->>John: Example text'),
-	['table']           = _paste_table
+	['classDiagram'] = _paste_mermaid{'classDiagram',
+		'\tAnimal <|-- Duck'
+	},
+	['code'] = _paste_code,
+	['erDiagram'] = _paste_mermaid{'erDiagram',
+		'\tFOO o|--|{ BAR : "example"'
+	},
+	['gantt'] = _paste_mermaid{'gantt',
+		'\ttitle Placeholder',
+		'\tdateFormat YYYY-MM-DD',
+		'\tsection NameHere',
+		'\t\tA task           :a1, 2014-01-01, 30d',
+		'\t\tAnother task     :after a1, 20d',
+		'\tsection Another',
+		'\t\tTask in sec      :2014-01-12, 12d',
+		'\t\tanother task     :24d',
+	},
+	['graph'] = _paste_mermaid{'graph LR',
+		'\tA --> B'
+	},
+	['latex'] = function() _paste{'$$', '', '$$'} end,
+	['pie'] = _paste_mermaid{'pie',
+		'\ttitle Placeholder',
+		'\t"Cheese" : 42.96',
+		'\t"Dogs" : 50.05',
+		'\t"Apples" : 10.01',
+	},
+	['sequenceDiagram'] = _paste_mermaid{'sequenceDiagram',
+		'\tAlice->>John: Example text'
+	},
+	['journey'] = _paste_mermaid{'journey',
+		"\ttitle My day",
+		"\tsection Office",
+		"\t\tDo work: 1: Me, Cat",
+		"\tsection Home",
+		"\t\tSit down: 5: Me"
+	},
+	['stateDiagram'] = _paste_mermaid{'stateDiagram-v2',
+		'\t[*] --> Still',
+		'\tStill --> Moving'
+	},
+	['table'] = _paste_table
 }
 
 return libmodal.Prompt.new(

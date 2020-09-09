@@ -9,15 +9,15 @@ It is not meant to replace existing markdown plugins, only enhance their functio
 * Basic `mermaid` snippets
 	* [x] Class Diagrams
 	* [x] Entity Relationship Diagrams
-	* [ ] Gantt
+	* [x] Gantt
 	* [x] Graphs
-	* [ ] Pie Charts
+	* [x] Pie Charts
 	* [x] Sequence Diagrams
-	* [ ] State Diagrams
-	* [ ] User Journey Diagrams
+	* [x] State Diagrams
+	* [x] User Journey Diagrams
 * Basic Markdown snippets
 	* [x] Code Blocks
-	* [ ] LaTeX Blocks
+	* [x] LaTeX Blocks
 	* [ ] Tables
 		* [ ] Appending columns
 		* [x] Initial generation
