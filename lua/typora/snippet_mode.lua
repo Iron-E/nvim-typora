@@ -118,7 +118,7 @@ end
 	 * PUBLICIZE MODULE
 	 */
 --]]
-local action_tree = {
+return libmodal.Prompt.new('TYPORA', {
 	['classDiagram'] = _paste_mermaid{'classDiagram',
 		'\tAnimal <|-- Duck'
 	},
@@ -161,17 +161,4 @@ local action_tree = {
 		'\tStill --> Moving'
 	},
 	['table'] = _paste_table
-}
-
-return libmodal.Prompt.new(
-	'TYPORA', -- The name of the prompt
-	function() -- The function for the prompt.
-		local input = vim.g.typoraModeInput
-
-		if action_tree[input] then action_tree[input]()
-		else libmodal.utils.show_error('Invalid selection')
-		end
-	end,
-	-- The autocompletion for the prompt.
-	vim.fn.sort(vim.tbl_keys(action_tree))
-)
+})
