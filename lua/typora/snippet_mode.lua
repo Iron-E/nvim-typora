@@ -32,8 +32,7 @@ local function _paste(text)
 	local current_position = api.nvim_win_get_cursor(CURRENT_WINDOW)
 	api.nvim_win_set_cursor(CURRENT_WINDOW, {current_position[1]+(#text or 1), current_position[2]})
 
-	-- Exit the prompt by sending an escape key.
-	api.nvim_feedkeys(string.char(libmodal.globals.ESC_NR), 'nt', false)
+	libmodal.utils.api.mode_exit()
 end
 
 -----------------------------------------------------
@@ -118,7 +117,7 @@ end
 	 * PUBLICIZE MODULE
 	 */
 --]]
-local action_tree = {
+return libmodal.Prompt.new('TYPORA', {
 	['classDiagram'] = _paste_mermaid{'classDiagram',
 		'\tAnimal <|-- Duck'
 	},
@@ -161,17 +160,4 @@ local action_tree = {
 		'\tStill --> Moving'
 	},
 	['table'] = _paste_table
-}
-
-return libmodal.Prompt.new(
-	'TYPORA', -- The name of the prompt
-	function() -- The function for the prompt.
-		local input = vim.g.typoraModeInput
-
-		if action_tree[input] then action_tree[input]()
-		else libmodal.utils.show_error('Invalid selection')
-		end
-	end,
-	-- The autocompletion for the prompt.
-	vim.fn.sort(vim.tbl_keys(action_tree))
-)
+})
