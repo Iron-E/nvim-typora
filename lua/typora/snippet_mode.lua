@@ -4,6 +4,7 @@
 	 */
 --]]
 local vim = vim
+local api = vim.api
 local libmodal = require('libmodal')
 
 --[[
@@ -28,8 +29,11 @@ local function _paste(text)
 	vim.fn.append(vim.fn.line('.'), text)
 
 	local CURRENT_WINDOW = 0
-	local current_position = vim.api.nvim_win_get_cursor(CURRENT_WINDOW)
-	vim.api.nvim_win_set_cursor(CURRENT_WINDOW, {current_position[1]+(#text or 1), current_position[2]})
+	local current_position = api.nvim_win_get_cursor(CURRENT_WINDOW)
+	api.nvim_win_set_cursor(CURRENT_WINDOW, {current_position[1]+(#text or 1), current_position[2]})
+
+	-- Exit the prompt by sending an escape key.
+	api.nvim_feedkeys(string.char(libmodal.globals.ESC_NR), 'nt', false)
 end
 
 -----------------------------------------------------
