@@ -21,10 +21,7 @@ It is not meant to replace existing markdown plugins, only enhance their functio
 	* [ ] Tables
 		* [ ] Appending columns
 		* [x] Initial generation
-* Links to helpful documentation from `:help`.
-	* [ ] LaTeX
-	* [ ] Mermaid
-	* [ ] Markdown
+* [x] Links to helpful documentation from `:help`.
 
 # Installation & Requirements
 

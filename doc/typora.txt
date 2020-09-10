@@ -46,7 +46,22 @@ See: |typora-usage|
 ================================================================================
 2. Usage                                                          *typora-usage*
 
-Placeholder.
+The following sections outlines |typora-usage-commands| and
+|typora-usage-functions| to assist in showcasing everything that this plugin can
+do.
+
+                                                            *typora-usage-links*
+Additionally, here are some links to helpful documentation which will help you
+write Markdown, LaTeX, Mermaid, and other markup formats which are useful when
+using Typora:
+
+Guide     Link
+--------  ----------------------------------------------------------------
+LaTeX     https://www.overleaf.com/learn/latex/Tutorials
+Markdown  https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+Mermaid   https://mermaid-js.github.io/mermaid
+PlantUML  https://plantuml.com/
+Typora    https://typora.io
 
 --------------------------------------------------------------------------------
 COMMANDS                                                 *typora-usage-commands*
