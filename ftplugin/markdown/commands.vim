@@ -7,3 +7,7 @@ endif
 if !exists(':TyporaMode')
 	command! TyporaMode call typora#snippet_mode()
 endif
+
+if !exists(':TableMode')
+	command! TyporaMode call typora#table_mode()
+endif
