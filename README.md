@@ -18,8 +18,8 @@ It is not meant to replace existing markdown plugins, only enhance their functio
 * Basic Markdown snippets
 	* [x] Code Blocks
 	* [x] LaTeX Blocks
-	* [ ] Tables
-		* [ ] Appending columns
+	* [x] Tables
+		* [x] Manipulating columns
 		* [x] Initial generation
 * [x] Links to helpful documentation from `:help`.
 
