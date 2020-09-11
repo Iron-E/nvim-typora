@@ -6,5 +6,10 @@ endfunction
 
 " SUMMARY: Enter `snippet_mode` for Typora.
 function! typora#snippet_mode() abort
-	lua require('typora').snippet_mode:enter()
+	lua require('typora').snippet_mode()
+endfunction
+
+" SUMMARY: Enter `table_mode` for appending, removing, or inserting columns in a table.
+function! typora#table_mode() abort
+	lua require('typora').table_mode()
 endfunction

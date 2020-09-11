@@ -117,7 +117,7 @@ end
 	 * PUBLICIZE MODULE
 	 */
 --]]
-return libmodal.Prompt.new('TYPORA', {
+return function() libmodal.prompt.enter('TYPORA', {
 	['classDiagram'] = _paste_mermaid{'classDiagram',
 		'\tAnimal <|-- Duck'
 	},
@@ -160,4 +160,4 @@ return libmodal.Prompt.new('TYPORA', {
 		'\tStill --> Moving'
 	},
 	['table'] = _paste_table
-})
+}) end
