@@ -83,6 +83,13 @@ COMMANDS                                                 *typora-usage-commands*
 
 	See |typora-snippets| for more details.
 
+`:TableMode`                                                          *:TableMode*
+
+	Open a |libmodal-mode| which will provide convenient mappings for doing
+	complex operations on Markdown tables.
+
+	See |typora#table_mode()| for more details.
+
 --------------------------------------------------------------------------------
 FUNCTIONS                                               *typora-usage-functions*
 
@@ -109,9 +116,7 @@ FUNCTIONS                                               *typora-usage-functions*
 			NOTE: If unspecified, {file} default to the open file in the
 			      current |window|.
 
-
-                                                               *typora-snippets*
-`typora.snippet_mode:enter()`                        *typora.snippet_mode:enter()*
+`typora.snippet_mode()`                              *typora.snippet_mode:enter()*
 `typora#snippet_mode()`                                    *typora#snippet_mode()*
 
 	Open a |libmodal-prompt| which will provide |:command-completion| as you
@@ -132,6 +137,33 @@ FUNCTIONS                                               *typora-usage-functions*
 		  implementation.
 		- |libmodal-prompt|, the command prompt implementation.
 		- |libmodal-lua-Prompt.enter()|, the command used to enter the prompt.
+
+                                                               *typora-snippets*
+`typora.table_mode()`                                         *typora.table_mode()*
+`typora#table_mode()`                                         *typora#table_mode()*
+
+	Open a |libmodal-mode| which will provide convenient mappings for doing
+	complex operations on Markdown tables.
+
+	Below are the mappings and their functions:
+
+	Mapping       Function
+	------------  -------------------------------
+	`0`, `_`, `^`, `H`    Move to first column
+	`h`, <Left>     Move to previous column
+	`l`, <Right>    Move to next column
+	`$`, `L`          Move to last column
+	`i`             Insert column behind.
+	`a`             Insert column ahead.
+	`I`             Insert column at the beginning.
+	`A`             Insert column at the end.
+	`r`             Insert new row.
+	`s`             Sort the rows.
+	`u`             Undo
+	`<`, <S-Left>   Move column left.
+	`>`, <S-Right>  Move column right.
+	`{`             Move column to the beginning.
+	`}`             Move column to the end.
 
 ================================================================================
 3. Examples                                                    *typora-examples*
@@ -236,11 +268,17 @@ When submitting an issue, please describe the following:
 ================================================================================
 8. Changelog                                                  *typora-changelog*
 
+0.2.0 ~
+
+	Additions: ~
+	- |libmodal| bindings with `:TableMode`.
+	- Various bug fixes.
+
 0.1.0 ~
 
 	Additions: ~
-	* |libmodal| bindings with `:TyporaMode`
-	* Open Typora from Neovim using `:Typora`
+	- |libmodal| bindings with `:TyporaMode`
+	- Open Typora from Neovim using `:Typora`
 
 ================================================================================
 9. Credits                                                      *typora-credits*
