@@ -4,5 +4,5 @@ if !hasmapto('<leader>t')
 endif
 
 if !hasmapto('<leader>T')
-	nmap <leader>t <Cmd>call typora#table_mode()<CR>
+	nmap <leader>T <Cmd>call typora#table_mode()<CR>
 endif
