@@ -6,6 +6,8 @@ It is not meant to replace existing markdown plugins, only enhance their functio
 
 # Features
 
+This plugin is still a work in progress. That said, it is in a good state for others to begin getting use out of it:
+
 * Basic `mermaid` snippets
 	* [x] Class Diagrams
 	* [x] Entity Relationship Diagrams
