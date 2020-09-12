@@ -14,30 +14,32 @@ local libmodal = require('libmodal')
 --]]
 local _FMT_COMMAND = ':TableFormat'
 local _ESC = string.char(libmodal.globals.ESC_NR)
+local _COLUMN = '|'
 
 
-----------------------------
+-----------------------------------
 --[[ SUMMARY:
 	* Get the column that the user's cursor is on.
 ]]
 --[[ RETURNS:
 	* The column that the user's cursor is on.
 ]]
-----------------------------
+-----------------------------------
 local function _get_cursor_column()
 	return vim.fn.col('.')
 end
 
------------------------------------
+--------------------------------------
 --[[ SUMMARY:
-	* Prompt the user for the name of a column that they wish to insert.
+	* Get the text from line that the cursor is currently on.
 ]]
 --[[ RETURNS:
-	* The name a new column that the user wishes to create.
+	* The text from line that the cursor is currently on.
 ]]
------------------------------------
-local function _input_column_name()
-	return vim.fn.input('What is the name for this new column?\n> ')
+--------------------------------------
+local function _get_cursor_line_text()
+	local current_line = vim.fn.line('.')
+	return vim.api.nvim_buf_get_lines(0, current_line-1, current_line, true)[1]
 end
 
 ----------------------------
@@ -61,7 +63,7 @@ end
 	* `motion` => the motion used to move the cursor, e.g. 'w' or 'l'.
 ]]
 -----------------------------------
-local function _move_cursor(motion)
+local function _move_colorcolumn(motion)
 	_norm(motion)
 	vim.wo.colorcolumn = tostring(_get_cursor_column())
 end
@@ -72,7 +74,7 @@ end
 ]]
 ------------------------------
 local function _first_column()
-	_move_cursor('0')
+	_move_colorcolumn('0')
 end
 
 -----------------------------
@@ -81,7 +83,7 @@ end
 ]]
 -----------------------------
 local function _prev_column()
-	_move_cursor('F|')
+	_move_colorcolumn('F|')
 end
 
 -----------------------------
@@ -90,7 +92,7 @@ end
 ]]
 -----------------------------
 local function _next_column()
-	_move_cursor('f|')
+	_move_colorcolumn('f|')
 end
 
 -----------------------------
@@ -99,7 +101,7 @@ end
 ]]
 -----------------------------
 local function _last_column()
-	_move_cursor('$')
+	_move_colorcolumn('$')
 end
 
 ------------------------------
@@ -110,10 +112,21 @@ end
 local function _reset_cursor(previous_column)
 	-- Make sure there is a value for the parameter.
 	if not previous_column then previous_column = _get_cursor_column() end
+
+	-- Move the cursor to the top of the table
+	_norm('{j')
+
 	-- Move the cursor back to that column.
-	_move_cursor('{j'..(previous_column - 1)..'l')
+	if previous_column > 1 then
+		_move_colorcolumn((previous_column - 1)..'l')
+	else -- Make sure that colorcolumn is set, but without having to call another `:norm`.
+		vim.wo.colorcolumn = tostring(previous_column)
+	end
+
 	-- Make sure the cursor is centered on a column near to the cursor.
-	_next_column(); _prev_column()
+	if string.sub(_get_cursor_line_text(), previous_column, previous_column) ~= _COLUMN then
+		_prev_column()
+	end
 end
 
 ------------------------------
@@ -167,7 +180,7 @@ local function _add_column()
 
 	-- Select the column, and insert a new column next to it.
 	_select_column()
-	_norm('I|'.._ESC..'a '.._input_column_name()..' ')
+	_norm('I'.._COLUMN.._ESC..'a '..vim.fn.input('What is the name for this new column?\n> ')..' ')
 	_prev_column()
 	_norm('ja:---:')
 
@@ -198,6 +211,7 @@ local function _move_column(movement_func)
 
 	-- Reformat the table, and center the cursor back on the column.
 	_format_table(cursor_column)
+	movement_func()
 end
 
 -- The list of commands for the mode.
@@ -220,29 +234,27 @@ local _commands = {
 	['A'] = function() _last_column(); _add_column() end,
 	-- Append a row to the bottom.
 	['r'] = function()
-		local current_line = vim.fn.line('.')
 		local current_column = _get_cursor_column()
-		local column_names = vim.fn.split(vim.api.nvim_buf_get_lines(0, current_line-1, current_line, true)[1], '|')
-		current_line = nil
+		local column_names = vim.fn.split(_get_cursor_line_text(), _COLUMN)
 
 		-- Start a new column.
-		_norm('jo| ')
+		_norm('jo'.._COLUMN..' ')
+
 		-- Append to each column the value that is inputted.
-		for _, column_name in ipairs(column_names) do _norm(
-				'a'
-				..vim.fn.input('What is the value for '..vim.trim(column_name)..'?\n> ')
-				..' |'
-		) end
+		for _, column_name in ipairs(column_names) do
+			local column_value = vim.fn.input('What is the value for '..vim.trim(column_name)..'?\n> ')
+			_norm('a'..column_value..' '.._COLUMN)
+		end
 
 		-- Format the table.
 		_format_table(current_column)
 	end,
 	-- Sort the rows.
 	['s'] = function()
-		local cursor_column = _get_cursor_column()
+		local current_column = _get_cursor_column()
 		-- Move down to the rows, select every row, then `:sort` them>
 		_norm('2j'.._to_char('<S-v>')..'}k:sort'.._to_char('<CR>'))
-		_format_table(cursor_column)
+		_format_table(current_column)
 	end,
 	-- Undo
 	['u'] = function() _norm('u') end,
@@ -253,7 +265,7 @@ local _commands = {
 	-- Move the current column to the beginning.
 	['{'] = function() _move_column(_first_column) end,
 	-- Move the current column to the end.
-	['}'] = function() _move_column(_last_column) end,
+	['}'] = function() _move_column(_last_column); _prev_column() end,
 }
 
 -- Link certain instructions with already-defined instructions.
