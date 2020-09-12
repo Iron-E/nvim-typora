@@ -12,9 +12,10 @@ local libmodal = require('libmodal')
 	 * MODULE
 	 */
 --]]
-local _FMT_COMMAND = ':TableFormat'
-local _ESC = string.char(libmodal.globals.ESC_NR)
 local _COLUMN = '|'
+local _ESC = string.char(libmodal.globals.ESC_NR)
+local _FMT_COMMAND = ':TableFormat'
+local _CAN_FMT_TABLE = vim.fn.exists(_FMT_COMMAND) > 1
 
 
 -----------------------------------
@@ -39,7 +40,7 @@ end
 --------------------------------------
 local function _get_cursor_line_text()
 	local current_line = vim.fn.line('.')
-	return vim.api.nvim_buf_get_lines(0, current_line-1, current_line, true)[1]
+	return api.nvim_buf_get_lines(0, current_line-1, current_line, true)[1]
 end
 
 ----------------------------
@@ -135,9 +136,7 @@ end
 ]]
 ------------------------------
 local function _format_table(previous_column)
-	if vim.fn.exists(_FMT_COMMAND) > 1 then
-		vim.cmd(_FMT_COMMAND)
-	end
+	if _CAN_FMT_TABLE then vim.cmd(_FMT_COMMAND) end
 	_reset_cursor(previous_column)
 end
 
