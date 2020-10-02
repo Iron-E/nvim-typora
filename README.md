@@ -25,6 +25,14 @@ This plugin is still a work in progress. That said, it is in a good state for ot
 		* [x] Initial generation
 * [x] Links to helpful documentation from `:help`.
 
+## Demo
+
+This is a demo of most of the features. `TableMode` can do more than is shown, and there are more ways to access these features than through `:execute`-ing commands. Read the [docs](./doc/typora.txt) for more information.
+
+![Demo](./media/2020_10_02.11_44_05.gif "Demo")
+
+* The theme in the demo is [nvim-highlite](https://github.com/Iron-E/nvim-highlite).
+
 # Installation & Requirements
 
 Requires the following:
