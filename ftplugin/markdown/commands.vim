@@ -9,5 +9,5 @@ if !exists(':TyporaMode')
 endif
 
 if !exists(':TableMode')
-	command! TyporaMode call typora#table_mode()
+	command! TableMode call typora#table_mode()
 endif
