@@ -93,7 +93,10 @@ end
 ]]
 -----------------------------
 local function _next_column()
-	_move_colorcolumn('f|')
+	--[[ Move forward two columns and back one column.
+		This prevents accidental selection of the final column. ]]
+	_norm('f|'); _norm('f|')
+	_prev_column()
 end
 
 -----------------------------
