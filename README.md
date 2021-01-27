@@ -1,6 +1,6 @@
 # Introduction
 
-`nvim-typora` is a plugin that aims to provide improved functionality with [Typora](typora.io) and its enhanced markdown features.
+`nvim-typora` is a plugin that aims to provide improved functionality with [Typora](https://typora.io) and its enhanced markdown features.
 
 It is not meant to replace existing markdown plugins, only enhance their functionality with specific additions for Typora.
 
@@ -38,7 +38,7 @@ This is a demo of most of the features. `TableMode` can do more than is shown, a
 Requires the following:
 
 * Neovim 0.5+
-* [Typora](typora.io)
+* [Typora](https://typora.io)
 * [nvim-libmodal](https://github.com/Iron-E/nvim-libmodal)
 	* Snippet functionality with `:TyporaMode`.
 	* Table manipulation with `:TableMode`.
