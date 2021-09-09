@@ -1,17 +1,9 @@
---[[
-	/*
-	 * IMPORTS
-	 */
---]]
-local vim = vim
-local api = vim.api
-local libmodal = require('libmodal')
+--[[/* IMPORTS */]]
 
---[[
-	/*
-	 * MODULE
-	 */
---]]
+local libmodal = require 'libmodal'
+
+--[[/* MODULE */]]
+
 local _COLUMN = '|'
 local _ESC = string.char(libmodal.globals.ESC_NR)
 local _FMT_COMMAND = ':TableFormat'
@@ -27,20 +19,7 @@ local _CAN_FMT_TABLE = vim.fn.exists(_FMT_COMMAND) > 1
 ]]
 -----------------------------------
 local function _get_cursor_column()
-	return vim.fn.col('.')
-end
-
---------------------------------------
---[[ SUMMARY:
-	* Get the text from line that the cursor is currently on.
-]]
---[[ RETURNS:
-	* The text from line that the cursor is currently on.
-]]
---------------------------------------
-local function _get_cursor_line_text()
-	local current_line = vim.fn.line('.')
-	return api.nvim_buf_get_lines(0, current_line-1, current_line, true)[1]
+	return vim.api.nvim_win_get_cursor(0)[2] + 1
 end
 
 ----------------------------
@@ -52,7 +31,7 @@ end
 ]]
 ----------------------------
 local function _norm(inputs)
-	vim.cmd('norm! '..inputs)
+	vim.api.nvim_command('norm! '..inputs)
 end
 
 -----------------------------------
@@ -128,7 +107,7 @@ local function _reset_cursor(previous_column)
 	end
 
 	-- Make sure the cursor is centered on a column near to the cursor.
-	if string.sub(_get_cursor_line_text(), previous_column, previous_column) ~= _COLUMN then
+	if string.sub(vim.api.nvim_get_current_line(), previous_column, previous_column) ~= _COLUMN then
 		_prev_column()
 	end
 end
@@ -139,7 +118,7 @@ end
 ]]
 ------------------------------
 local function _format_table(previous_column)
-	if _CAN_FMT_TABLE then vim.cmd(_FMT_COMMAND) end
+	if _CAN_FMT_TABLE then vim.api.nvim_command(_FMT_COMMAND) end
 	_reset_cursor(previous_column)
 end
 
@@ -155,8 +134,8 @@ end
 	* The converted character code.
 ]]
 ----------------------------
-local function _to_char(val)
-	return api.nvim_eval('"\\'..val..'"')
+local function _to_char(char)
+	return vim.api.nvim_replace_termcodes(char, true, true, true)
 end
 
 -------------------------------
@@ -237,7 +216,7 @@ local _commands = {
 	-- Append a row to the bottom.
 	['r'] = function()
 		local current_column = _get_cursor_column()
-		local column_names = vim.fn.split(_get_cursor_line_text(), _COLUMN)
+		local column_names = vim.split(vim.api.nvim_get_current_line(), _COLUMN, true)
 
 		-- Start a new column.
 		_norm('jo'.._COLUMN..' ')
