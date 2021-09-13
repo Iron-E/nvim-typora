@@ -1,17 +1,8 @@
---[[
-	/*
-	 * IMPORTS
-	 */
---]]
-local vim = vim
-local api = vim.api
-local libmodal = require('libmodal')
+--[[/* IMPORTS */]]
 
---[[
-	/*
-	 * MODULE
-	 */
---]]
+local libmodal = require 'libmodal'
+
+--[[/* MODULE */]]
 
 ---------------------------
 --[[ SUMMARY:
@@ -23,14 +14,17 @@ local libmodal = require('libmodal')
 ---------------------------
 local function _paste(text)
 	-- Add a space to the bottom of the snippet.
-	if type(text) == 'string' then text = {text} end
+	if type(text) == 'string' then
+		text = {text}
+	end
+
 	text[#text+1] = ''
 
-	vim.fn.append(vim.fn.line('.'), text)
+	local line = vim.api.nvim_get_current_line()
+	vim.api.nvim_buf_set_lines(0, line, line, true, text)
 
-	local CURRENT_WINDOW = 0
-	local current_position = api.nvim_win_get_cursor(CURRENT_WINDOW)
-	api.nvim_win_set_cursor(CURRENT_WINDOW, {current_position[1]+(#text or 1), current_position[2]})
+	local new_line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	vim.api.nvim_win_set_cursor(0, {new_line + (#text or 1), col})
 
 	libmodal.utils.api.mode_exit()
 end
@@ -46,7 +40,9 @@ end
 ]]
 -----------------------------------------------------
 local function _paste_code(language, template)
-	if not language then language = vim.fn.input("\nWhich language?\n> ") end
+	if not language then
+		language = vim.fn.input '\nWhich language?\n> '
+	end
 
 	-- This is the delimiter for a markdown codeblock.
 	local DELIMITER = "```"
@@ -54,13 +50,15 @@ local function _paste_code(language, template)
 	local to_paste = {DELIMITER..language}
 
 	if template then -- Format the template.
-		if type(template) ~= 'table' then template = {template} end
+		if type(template) ~= 'table' then
+			template = {template}
+		end
 
 		for _, line in ipairs(template) do
 			to_paste[#to_paste+1] = line
 		end
 	else -- Add a blank line
-		to_paste[#to_paste+1] = ""
+		to_paste[#to_paste+1] = ''
 	end
 
 	-- Add the ending delimiter.
@@ -93,7 +91,7 @@ end
 -----------------------------
 local function _paste_table()
 	-- Get the number of columns.
-	local columns = vim.fn.input('\nHow many columns?\n> ')
+	local columns = vim.fn.input '\nHow many columns?\n> '
 
 	-- Create the text for the table.
 	local table_text = {'|', '|'}
@@ -107,8 +105,8 @@ local function _paste_table()
 
 	-- Format the just-pasted table.
 	-- This might have to be adjusted to =2
-	if vim.fn.exists(':TableFormat') > 1 then
-		vim.cmd('TableFormat')
+	if vim.fn.exists ':TableFormat' > 1 then
+		vim.api.nvim_command 'TableFormat'
 	end
 end
 
@@ -117,7 +115,8 @@ end
 	 * PUBLICIZE MODULE
 	 */
 --]]
-return function() libmodal.prompt.enter('TYPORA', {
+return function() libmodal.prompt.enter('TYPORA',
+{
 	['classDiagram'] = _paste_mermaid{'classDiagram',
 		'\tAnimal <|-- Duck'
 	},
