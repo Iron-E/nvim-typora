@@ -20,7 +20,7 @@ local function _paste(text)
 
 	text[#text+1] = ''
 
-	local line = vim.api.nvim_get_current_line()
+	local line = vim.api.nvim_win_get_cursor(0)[1]
 	vim.api.nvim_buf_set_lines(0, line, line, true, text)
 
 	local new_line, col = unpack(vim.api.nvim_win_get_cursor(0))
