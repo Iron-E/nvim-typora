@@ -1,3 +1,7 @@
+NOTE: this repository has been archived— I don't use Typora anymore. I discovered that it is not free software, and have transitioned elsewhere.
+
+---
+
 # Introduction
 
 `nvim-typora` is a plugin that aims to provide improved functionality with [Typora](https://typora.io) and its enhanced markdown features.
